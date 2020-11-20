@@ -10,6 +10,7 @@ describe('<Button />', () => {
 
     expect(screen.getByRole('button', { name: /default/i })).toHaveStyle({
       'background-color': '#e0e0e0',
+      'box-shadow': '0 0.2rem 0.3rem rgba(51,51,51,0.2)',
       color: '#3f3f3f',
     });
   });
@@ -32,5 +33,13 @@ describe('<Button />', () => {
       border: '0.1rem solid transparent',
       color: '#3d5afe',
     });
+  });
+
+  it("should not render box shadow when 'disableShadow' equal true", () => {
+    render(<Button disableShadow>Button</Button>);
+
+    expect(screen.getByRole('button', { name: /button/i })).not.toHaveStyleRule(
+      'box-shadow'
+    );
   });
 });
