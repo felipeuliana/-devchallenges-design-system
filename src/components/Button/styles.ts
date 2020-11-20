@@ -6,6 +6,9 @@ const variantStyles = `
   color: #3d5afe;
 `;
 const wrapperModifiers = {
+  boxShadow: () => css`
+    box-shadow: 0 0.2rem 0.3rem rgba(51, 51, 51, 0.2);
+  `,
   outline: () => css`
     ${variantStyles}
     border: 0.1rem solid #3d5afe;
@@ -16,7 +19,7 @@ const wrapperModifiers = {
 };
 
 export const Wrapper = styled.button<ButtonProps>`
-  ${({ variant }) => css`
+  ${({ disableShadow, variant }) => css`
     background-color: #e0e0e0;
     border: 0.1rem solid transparent;
     border-radius: 0.6rem;
@@ -32,5 +35,6 @@ export const Wrapper = styled.button<ButtonProps>`
     transition: background-color 0.25s ease-in-out;
 
     ${variant && wrapperModifiers[variant]()}
+    ${!variant && !disableShadow && wrapperModifiers.boxShadow()}
   `}
 `;
