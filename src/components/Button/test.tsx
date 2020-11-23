@@ -50,4 +50,28 @@ describe('<Button />', () => {
       'disabled'
     );
   });
+
+  it('should render sm size', () => {
+    render(<Button size="sm">Small</Button>);
+
+    expect(screen.getByRole('button', { name: /small/i })).toHaveStyle({
+      padding: '0.6rem 1.2rem',
+    });
+  });
+
+  it('should render md size', () => {
+    render(<Button size="md">Medium</Button>);
+
+    expect(screen.getByRole('button', { name: /medium/i })).toHaveStyle({
+      padding: '0.8rem 1.6rem',
+    });
+  });
+
+  it('should render lg size', () => {
+    render(<Button size="lg">Large</Button>);
+
+    expect(screen.getByRole('button', { name: /large/i })).toHaveStyle({
+      padding: '1.1rem 2.2rem',
+    });
+  });
 });

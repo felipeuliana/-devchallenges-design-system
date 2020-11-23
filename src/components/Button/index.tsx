@@ -5,18 +5,21 @@ export type ButtonProps = {
   children: React.ReactNode;
   disabled?: boolean;
   disableShadow?: boolean;
-  variant?: 'outline' | 'text' | null;
+  variant?: 'default' | 'outline' | 'text';
+  size?: 'sm' | 'md' | 'lg';
 };
 
 const Button = ({
   children,
   disabled,
   disableShadow,
-  variant = null,
+  size = 'md',
+  variant = 'default',
 }: ButtonProps) => (
   <S.Wrapper
     disabled={disabled}
     disableShadow={disableShadow}
+    size={size}
     variant={variant}
   >
     {children}
