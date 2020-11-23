@@ -2,10 +2,39 @@ import styled, { css } from 'styled-components';
 import { ButtonProps } from '.';
 
 const _COLORS = new Map([
-  ['danger', { regular: '#d32f2f', alternative: '#fff' }],
-  ['default', { regular: '#e0e0e0', alternative: '#3f3f3f' }],
-  ['primary', { regular: '#2962ff', alternative: '#fff' }],
-  ['secondary', { regular: '#455a64', alternative: '#fff' }],
+  [
+    'danger',
+    {
+      alternative: '#fff',
+      dark: '#9a0007',
+      regular: '#d32f2f',
+    },
+  ],
+  [
+    'default',
+    {
+      alternative: '#3f3f3f',
+      dark: '#aeaeae',
+      regular: '#e0e0e0',
+    },
+  ],
+  [
+    'primary',
+    {
+      alternative: '#fff',
+      dark: '#0039cb',
+      light: 'rgba(41, 98, 255, 0.1)',
+      regular: '#2962ff',
+    },
+  ],
+  [
+    'secondary',
+    {
+      alternative: '#fff',
+      dark: '#1c313a',
+      regular: '#455a64',
+    },
+  ],
 ]);
 
 const _SIZES = new Map([
@@ -19,23 +48,45 @@ const _wrapperModifiers = {
     background-color: ${_COLORS.get(color)?.regular};
     border-color: ${_COLORS.get(color)?.regular};
     color: ${_COLORS.get(color)?.alternative};
+
+    &:focus,
+    &:hover {
+      background-color: ${_COLORS.get(color)?.dark};
+      border-color: ${_COLORS.get(color)?.dark};
+    }
   `,
-  outline: (color: string) => css`
-    background-color: ${color !== 'default'
-      ? _COLORS.get(color)?.alternative
-      : 'transparent'};
-    border-color: ${_COLORS.get(color)?.regular};
-    color: ${_COLORS.get(color)?.regular};
+  outline: () => css`
+    background-color: ${_COLORS.get('primary')?.alternative};
+    border-color: ${_COLORS.get('primary')?.regular};
+    color: ${_COLORS.get('primary')?.regular};
+
+    &:focus,
+    &:hover {
+      background-color: ${_COLORS.get('primary')?.light};
+    }
   `,
-  text: (color: string) => css`
-    background-color: ${color !== 'default'
-      ? _COLORS.get(color)?.alternative
-      : 'transparent'};
-    border-color: transparent;
-    color: ${_COLORS.get(color)?.regular};
+  text: () => css`
+    background-color: ${_COLORS.get('primary')?.alternative};
+    border-color: ${_COLORS.get('primary')?.alternative};
+    color: ${_COLORS.get('primary')?.regular};
+
+    &:focus,
+    &:hover {
+      background-color: ${_COLORS.get('primary')?.light};
+    }
   `,
   setBoxShadow: () => css`
     box-shadow: 0 0.2rem 0.3rem rgba(51, 51, 51, 0.2);
+  `,
+  setDisabled: (hasBackground: boolean) => css`
+    &[disabled] {
+      background-color: ${hasBackground
+        ? _COLORS.get('default')?.regular
+        : _COLORS.get('primary')?.alternative};
+      border-color: transparent;
+      color: #9e9e9e;
+      cursor: not-allowed;
+    }
   `,
   setSize: (size: string) => css`
     padding: ${_SIZES.get(size)};
@@ -57,20 +108,14 @@ export const Wrapper = styled.button<ButtonProps>`
       line-height: 20px;
       padding: 0.8rem 1.6rem;
       text-align: center;
-      transition: background-color 0.25s ease-in-out;
+      transition:
+        background-color 0.25s ease-in-out,
+        border-color 0.25s ease-in-out;
 
-      &[disabled] {
-        background-color: ${variant === 'text'
-          ? 'transparent'
-          : _COLORS.get('default')?.regular};
-        border-color: transparent;
-        color: #9e9e9e;
-        cursor: not-allowed;
-      }
-
-      ${_enableShadow && _wrapperModifiers.setBoxShadow()}
-      ${!!size && _wrapperModifiers.setSize(size)}
       ${!!variant && !!color && _wrapperModifiers[variant](color)}
+      ${!!size && _wrapperModifiers.setSize(size)}
+      ${disabled && _wrapperModifiers.setDisabled(variant !== 'text')}
+      ${_enableShadow && _wrapperModifiers.setBoxShadow()}
     `;
   }}
 `;
