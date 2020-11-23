@@ -37,6 +37,16 @@ const _wrapperModifiers = {
   setBoxShadow: () => css`
     box-shadow: 0 0.2rem 0.3rem rgba(51, 51, 51, 0.2);
   `,
+  setDisabled: (hasBackground: boolean) => css`
+    &[disabled] {
+      background-color: ${hasBackground
+        ? _COLORS.get('default')?.regular
+        : _COLORS.get('primary')?.alternative};
+      border-color: transparent;
+      color: #9e9e9e;
+      cursor: not-allowed;
+    }
+  `,
   setSize: (size: string) => css`
     padding: ${_SIZES.get(size)};
   `,
@@ -59,18 +69,10 @@ export const Wrapper = styled.button<ButtonProps>`
       text-align: center;
       transition: background-color 0.25s ease-in-out;
 
-      &[disabled] {
-        background-color: ${variant === 'text'
-          ? 'transparent'
-          : _COLORS.get('default')?.regular};
-        border-color: transparent;
-        color: #9e9e9e;
-        cursor: not-allowed;
-      }
-
-      ${_enableShadow && _wrapperModifiers.setBoxShadow()}
-      ${!!size && _wrapperModifiers.setSize(size)}
       ${!!variant && !!color && _wrapperModifiers[variant](color)}
+      ${!!size && _wrapperModifiers.setSize(size)}
+      ${disabled && _wrapperModifiers.setDisabled(variant !== 'text')}
+      ${_enableShadow && _wrapperModifiers.setBoxShadow()}
     `;
   }}
 `;
