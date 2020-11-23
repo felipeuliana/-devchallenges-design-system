@@ -8,7 +8,7 @@ In the project directory, you can run:
 
 ### `yarn generate`
 
-Run the script to generate a component with the files above:\
+Run the script to generate a component with the files below:
 - index.tsx;
 - stories.tsx;
 - styles.ts;
@@ -25,6 +25,10 @@ Builds your stories for production.\
 Your stories is ready to be deployed!
 
 ### `yarn test`
+
+Launches the test runner.
+
+### `yarn test:watch`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.

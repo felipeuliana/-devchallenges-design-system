@@ -12,3 +12,10 @@ export const Default: Story<ButtonProps> = (args) => <Button {...args} />;
 Default.args = {
   children: 'Button',
 };
+
+export const Disabled: Story<ButtonProps> = (args) => <Button {...args} />;
+
+Disabled.args = {
+  children: 'Disabled',
+  disabled: true,
+};

@@ -5,7 +5,7 @@ import Button from '.';
 describe('<Button />', () => {
   test.todo('should render correctly');
 
-  it('should render default button type', () => {
+  it('should render default type', () => {
     render(<Button>Default</Button>);
 
     expect(screen.getByRole('button', { name: /default/i })).toHaveStyle({
@@ -15,7 +15,7 @@ describe('<Button />', () => {
     });
   });
 
-  it('should render outline button type', () => {
+  it('should render outline type', () => {
     render(<Button variant="outline">Outline</Button>);
 
     expect(screen.getByRole('button', { name: /outline/i })).toHaveStyle({
@@ -25,7 +25,7 @@ describe('<Button />', () => {
     });
   });
 
-  it('should render text button type', () => {
+  it('should render text type', () => {
     render(<Button variant="text">Text</Button>);
 
     expect(screen.getByRole('button', { name: /text/i })).toHaveStyle({
@@ -35,11 +35,19 @@ describe('<Button />', () => {
     });
   });
 
-  it("should not render box shadow when 'disableShadow' equal true", () => {
+  it('should disable the box shadow', () => {
     render(<Button disableShadow>Button</Button>);
 
     expect(screen.getByRole('button', { name: /button/i })).not.toHaveStyleRule(
       'box-shadow'
+    );
+  });
+
+  it('should be disabled', () => {
+    render(<Button disabled>Disabled</Button>);
+
+    expect(screen.getByRole('button', { name: /disabled/i })).toHaveAttribute(
+      'disabled'
     );
   });
 });
