@@ -20,17 +20,17 @@ const _wrapperModifiers = {
     border-color: ${_COLORS.get(color)?.regular};
     color: ${_COLORS.get(color)?.alternative};
   `,
-  outline: (color: string) => css`
-    background-color: ${color !== 'default'
-      ? _COLORS.get(color)?.alternative
-      : 'transparent'};
+  outline: () => css`
+    background-color: ${_COLORS.get('primary')?.alternative};
+    border-color: ${_COLORS.get('primary')?.regular};
+    color: ${_COLORS.get('primary')?.regular};
     border-color: ${_COLORS.get(color)?.regular};
     color: ${_COLORS.get(color)?.regular};
   `,
-  text: (color: string) => css`
-    background-color: ${color !== 'default'
-      ? _COLORS.get(color)?.alternative
-      : 'transparent'};
+  text: () => css`
+    background-color: ${_COLORS.get('primary')?.alternative};
+    border-color: ${_COLORS.get('primary')?.alternative};
+    color: ${_COLORS.get('primary')?.regular};
     border-color: transparent;
     color: ${_COLORS.get(color)?.regular};
   `,
