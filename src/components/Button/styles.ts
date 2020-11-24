@@ -66,8 +66,8 @@ const _wrapperModifiers = {
     }
   `,
   text: () => css`
-    background-color: ${_COLORS.get('primary')?.alternative};
-    border-color: ${_COLORS.get('primary')?.alternative};
+    background-color: transparent;
+    border-color: transparent;
     color: ${_COLORS.get('primary')?.regular};
 
     &:focus,
@@ -94,7 +94,15 @@ const _wrapperModifiers = {
 };
 
 export const Wrapper = styled.button<ButtonProps>`
-  ${({ color, disabled, disableShadow, size, variant }) => {
+  ${({
+    color,
+    disabled,
+    disableShadow,
+    leftIcon,
+    rightIcon,
+    size,
+    variant,
+  }) => {
     const _enableShadow = variant === 'default' && !disableShadow && !disabled;
 
     return css`
@@ -105,12 +113,18 @@ export const Wrapper = styled.button<ButtonProps>`
       font-size: 1.4rem;
       font-style: normal;
       font-weight: 500;
-      line-height: 20px;
+      line-height: 2rem;
       padding: 0.8rem 1.6rem;
       text-align: center;
-      transition:
-        background-color 0.25s ease-in-out,
+      transition: background-color 0.25s ease-in-out,
         border-color 0.25s ease-in-out;
+
+      & > svg {
+        fill: currentColor;
+        height: 2rem;
+        ${!!rightIcon && 'margin-left: 0.5rem'};
+        ${!!leftIcon && 'margin-right: 0.5rem'};
+      }
 
       ${!!variant && !!color && _wrapperModifiers[variant](color)}
       ${!!size && _wrapperModifiers.setSize(size)}
