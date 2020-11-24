@@ -564,11 +564,13 @@ describe('<Button />', () => {
     it('should be hovered', () => {
       render(<Button variant="outline">Hovered</Button>);
 
-      expect(
-        screen.getByRole('button', { name: /hovered/i })
-      ).toHaveStyleRule('background-color', 'rgba(41,98,255,0.1)', {
-        modifier: ':hover',
-      });
+      expect(screen.getByRole('button', { name: /hovered/i })).toHaveStyleRule(
+        'background-color',
+        'rgba(41,98,255,0.1)',
+        {
+          modifier: ':hover',
+        }
+      );
     });
   });
 
@@ -577,8 +579,8 @@ describe('<Button />', () => {
       render(<Button variant="text">Text</Button>);
 
       expect(screen.getByRole('button', { name: /text/i })).toHaveStyle({
-        'background-color': '#fff',
-        'border-color': '#fff',
+        'background-color': 'transparent',
+        'border-color': 'transparent',
         color: '#2962FF',
       });
     });
@@ -657,11 +659,13 @@ describe('<Button />', () => {
     it('should be hovered', () => {
       render(<Button variant="text">Hovered</Button>);
 
-      expect(
-        screen.getByRole('button', { name: /hovered/i })
-      ).toHaveStyleRule('background-color', 'rgba(41,98,255,0.1)', {
-        modifier: ':hover',
-      });
+      expect(screen.getByRole('button', { name: /hovered/i })).toHaveStyleRule(
+        'background-color',
+        'rgba(41,98,255,0.1)',
+        {
+          modifier: ':hover',
+        }
+      );
     });
   });
 });

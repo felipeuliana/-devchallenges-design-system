@@ -66,8 +66,8 @@ const _wrapperModifiers = {
     }
   `,
   text: () => css`
-    background-color: ${_COLORS.get('primary')?.alternative};
-    border-color: ${_COLORS.get('primary')?.alternative};
+    background-color: transparent;
+    border-color: transparent;
     color: ${_COLORS.get('primary')?.regular};
 
     &:focus,
@@ -108,8 +108,7 @@ export const Wrapper = styled.button<ButtonProps>`
       line-height: 20px;
       padding: 0.8rem 1.6rem;
       text-align: center;
-      transition:
-        background-color 0.25s ease-in-out,
+      transition: background-color 0.25s ease-in-out,
         border-color 0.25s ease-in-out;
 
       ${!!variant && !!color && _wrapperModifiers[variant](color)}
