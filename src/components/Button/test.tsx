@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '.';
 import { render, screen } from '@testing-library/react';
+import { InsertEmoticon } from '@styled-icons/material';
 
 const DISABLED_STYLE = {
   'background-color': '#e0e0e0',
@@ -482,6 +483,38 @@ describe('<Button />', () => {
         modifier: ':focus',
       });
     });
+
+    it('should display an icon', () => {
+      render(<Button children={<InsertEmoticon title="Emoticon" />} />);
+
+      expect(screen.getByRole('img')).toBeInTheDocument();
+    });
+
+    it('should display an icon on the left', () => {
+      render(
+        <Button leftIcon={<InsertEmoticon title="Emoticon" />}>
+          Left Icon
+        </Button>
+      );
+
+      const withLeftIcon = screen.getByRole('img');
+
+      expect(withLeftIcon).toBeInTheDocument();
+      expect(withLeftIcon).toHaveStyle({ 'margin-right': '0.5rem' });
+    });
+
+    it('should display an icon on the right', () => {
+      render(
+        <Button rightIcon={<InsertEmoticon title="Emoticon" />}>
+          Right Icon
+        </Button>
+      );
+
+      const withRightIcon = screen.getByRole('img');
+
+      expect(withRightIcon).toBeInTheDocument();
+      expect(withRightIcon).toHaveStyle({ 'margin-left': '0.5rem' });
+    });
   });
 
   describe('"outline" type', () => {
@@ -571,6 +604,49 @@ describe('<Button />', () => {
           modifier: ':hover',
         }
       );
+    });
+
+    it('should display an icon', () => {
+      render(
+        <Button
+          children={<InsertEmoticon title="Emoticon" />}
+          variant="outline"
+        />
+      );
+
+      expect(screen.getByRole('img')).toBeInTheDocument();
+    });
+
+    it('should display an icon on the left', () => {
+      render(
+        <Button
+          variant="outline"
+          leftIcon={<InsertEmoticon title="Emoticon" />}
+        >
+          Left Icon
+        </Button>
+      );
+
+      const withLeftIcon = screen.getByRole('img');
+
+      expect(withLeftIcon).toBeInTheDocument();
+      expect(withLeftIcon).toHaveStyle({ 'margin-right': '0.5rem' });
+    });
+
+    it('should display an icon on the right', () => {
+      render(
+        <Button
+          rightIcon={<InsertEmoticon title="Emoticon" />}
+          variant="outline"
+        >
+          Right Icon
+        </Button>
+      );
+
+      const withRightIcon = screen.getByRole('img');
+
+      expect(withRightIcon).toBeInTheDocument();
+      expect(withRightIcon).toHaveStyle({ 'margin-left': '0.5rem' });
     });
   });
 
@@ -666,6 +742,40 @@ describe('<Button />', () => {
           modifier: ':hover',
         }
       );
+    });
+
+    it('should display an icon', () => {
+      render(
+        <Button children={<InsertEmoticon title="Emoticon" />} variant="text" />
+      );
+
+      expect(screen.getByRole('img')).toBeInTheDocument();
+    });
+
+    it('should display an icon on the left', () => {
+      render(
+        <Button leftIcon={<InsertEmoticon title="Emoticon" />} variant="text">
+          Left Icon
+        </Button>
+      );
+
+      const withLeftIcon = screen.getByRole('img');
+
+      expect(withLeftIcon).toBeInTheDocument();
+      expect(withLeftIcon).toHaveStyle({ 'margin-right': '0.5rem' });
+    });
+
+    it('should display an icon on the right', () => {
+      render(
+        <Button rightIcon={<InsertEmoticon title="Emoticon" />} variant="text">
+          Right Icon
+        </Button>
+      );
+
+      const withRightIcon = screen.getByRole('img');
+
+      expect(withRightIcon).toBeInTheDocument();
+      expect(withRightIcon).toHaveStyle({ 'margin-left': '0.5rem' });
     });
   });
 });

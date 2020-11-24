@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import * as S from './styles';
 
 export type ButtonProps = {
-  children: React.ReactNode;
+  children?: ReactNode;
   color?: 'default' | 'primary' | 'secondary' | 'danger';
   disabled?: boolean;
   disableShadow?: boolean;
-  variant?: 'default' | 'outline' | 'text';
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   size?: 'sm' | 'md' | 'lg';
+  variant?: 'default' | 'outline' | 'text';
 };
 
 const Button = ({
   children,
+  color = 'default',
   disabled,
   disableShadow,
-  color = 'default',
+  leftIcon,
+  rightIcon,
   size = 'md',
   variant = 'default',
 }: ButtonProps) => (
@@ -22,10 +26,14 @@ const Button = ({
     color={color}
     disabled={disabled}
     disableShadow={disableShadow}
+    leftIcon={leftIcon}
+    rightIcon={rightIcon}
     size={size}
     variant={variant}
   >
+    {leftIcon}
     {children}
+    {rightIcon}
   </S.Wrapper>
 );
 
