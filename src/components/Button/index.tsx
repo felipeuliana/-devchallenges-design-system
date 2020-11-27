@@ -1,35 +1,44 @@
-import React, { ReactNode } from 'react';
+import React, {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ElementType,
+  ReactNode,
+} from 'react';
 import * as S from './styles';
 
+type ButtonTypes =
+  | AnchorHTMLAttributes<HTMLAnchorElement>
+  | ButtonHTMLAttributes<HTMLButtonElement>;
+
 export type ButtonProps = {
+  as?: ElementType;
   children?: ReactNode;
   color?: 'default' | 'primary' | 'secondary' | 'danger';
   disabled?: boolean;
   disableShadow?: boolean;
+  href?: string;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   size?: 'sm' | 'md' | 'lg';
   variant?: 'default' | 'outline' | 'text';
-};
+} & ButtonTypes;
 
 const Button = ({
   children,
   color = 'default',
-  disabled,
-  disableShadow,
   leftIcon,
   rightIcon,
   size = 'md',
   variant = 'default',
+  ...props
 }: ButtonProps) => (
   <S.Wrapper
     color={color}
-    disabled={disabled}
-    disableShadow={disableShadow}
     leftIcon={leftIcon}
     rightIcon={rightIcon}
     size={size}
     variant={variant}
+    {...props}
   >
     {leftIcon}
     {children}

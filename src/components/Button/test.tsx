@@ -7,11 +7,45 @@ const DISABLED_STYLE = {
   'background-color': '#e0e0e0',
   'border-color': 'transparent',
   color: '#9e9e9e',
-  cursor: 'not-allowed',
+  'pointer-events': 'none',
 };
 
 describe('<Button />', () => {
-  test.todo('should render correctly');
+  it('should render correctly', () => {
+    render(
+      <Button
+        color="primary"
+        size="lg"
+        leftIcon={<InsertEmoticon title="Emoticon" />}
+      >
+        Emoticon
+      </Button>
+    );
+
+    expect(screen.getByRole('button', { name: /emoticon/i })).toMatchSnapshot();
+
+    render(
+      <Button as="a" href="/link" size="sm" variant="text">
+        Link
+      </Button>
+    );
+
+    expect(screen.getByRole('link', { name: /link/i })).toMatchSnapshot();
+  });
+
+  it('should allow access to button attributes', () => {
+    render(
+      <Button disabled name="Default" value="Default">
+        Default
+      </Button>
+    );
+
+    const defaultButton = screen.getByRole('button', { name: /default/i });
+
+    expect(defaultButton).toHaveAttribute('disabled');
+    expect(defaultButton).toHaveAttribute('name');
+    expect(defaultButton).toHaveAttribute('value');
+  });
 
   describe('"default" type', () => {
     it('should be styled correctly', () => {
@@ -711,7 +745,7 @@ describe('<Button />', () => {
         'background-color': '#fff',
         'border-color': 'transparent',
         color: '#9e9e9e',
-        cursor: 'not-allowed',
+        'pointer-events': 'none',
       });
     });
 
@@ -768,6 +802,669 @@ describe('<Button />', () => {
     it('should display an icon on the right', () => {
       render(
         <Button rightIcon={<InsertEmoticon title="Emoticon" />} variant="text">
+          Right Icon
+        </Button>
+      );
+
+      const withRightIcon = screen.getByRole('img');
+
+      expect(withRightIcon).toBeInTheDocument();
+      expect(withRightIcon).toHaveStyle({ 'margin-left': '0.5rem' });
+    });
+  });
+
+  describe('"link" type', () => {
+    it('should be styled correctly', () => {
+      render(
+        <Button as="a" href="/link">
+          Link
+        </Button>
+      );
+
+      const link = screen.getByRole('link', { name: /link/i });
+
+      expect(link).toHaveAttribute('href', '/link');
+      expect(link).toHaveStyle({
+        'background-color': '#e0e0e0',
+        'box-shadow': '0 0.2rem 0.3rem rgba(51,51,51,0.2)',
+        color: '#3f3f3f',
+      });
+    });
+
+    it('should render the "sm" size', () => {
+      render(
+        <Button as="a" href="/link" size="sm">
+          Link Small
+        </Button>
+      );
+
+      const linkSmall = screen.getByRole('link', {
+        name: /link small/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="primary" size="sm">
+          Link Primary Small
+        </Button>
+      );
+
+      const linkPrimarySmall = screen.getByRole('link', {
+        name: /link primary small/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="secondary" size="sm">
+          Link Secondary Small
+        </Button>
+      );
+
+      const linkSecondarySmall = screen.getByRole('link', {
+        name: /link secondary small/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="danger" size="sm">
+          Link Danger Small
+        </Button>
+      );
+
+      const linkDangerSmall = screen.getByRole('link', {
+        name: /link danger small/i,
+      });
+
+      expect(linkSmall).toHaveAttribute('href', '/link');
+      expect(linkSmall).toHaveStyle({ padding: '0.6rem 1.2rem' });
+
+      expect(linkPrimarySmall).toHaveAttribute('href', '/link');
+      expect(linkPrimarySmall).toHaveStyle({ padding: '0.6rem 1.2rem' });
+
+      expect(linkSecondarySmall).toHaveAttribute('href', '/link');
+      expect(linkSecondarySmall).toHaveStyle({ padding: '0.6rem 1.2rem' });
+
+      expect(linkDangerSmall).toHaveAttribute('href', '/link');
+      expect(linkDangerSmall).toHaveStyle({ padding: '0.6rem 1.2rem' });
+    });
+
+    it('should render the "md" size', () => {
+      render(
+        <Button as="a" href="/link" size="md">
+          Link Default Medium
+        </Button>
+      );
+
+      const linkDefaultMedium = screen.getByRole('link', {
+        name: /link default medium/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="primary" size="md">
+          Link Primary Medium
+        </Button>
+      );
+
+      const linkPrimaryMedium = screen.getByRole('link', {
+        name: /link primary medium/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="secondary" size="md">
+          Link Secondary Medium
+        </Button>
+      );
+
+      const linkSecondaryMedium = screen.getByRole('link', {
+        name: /link secondary medium/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="danger" size="md">
+          Link Danger Medium
+        </Button>
+      );
+
+      const linkDangerMedium = screen.getByRole('link', {
+        name: /link danger medium/i,
+      });
+
+      expect(linkDefaultMedium).toHaveAttribute('href', '/link');
+      expect(linkDefaultMedium).toHaveStyle({ padding: '0.8rem 1.6rem' });
+
+      expect(linkPrimaryMedium).toHaveAttribute('href', '/link');
+      expect(linkPrimaryMedium).toHaveStyle({ padding: '0.8rem 1.6rem' });
+
+      expect(linkSecondaryMedium).toHaveAttribute('href', '/link');
+      expect(linkSecondaryMedium).toHaveStyle({ padding: '0.8rem 1.6rem' });
+
+      expect(linkDangerMedium).toHaveAttribute('href', '/link');
+      expect(linkDangerMedium).toHaveStyle({ padding: '0.8rem 1.6rem' });
+    });
+
+    it('should render the "lg" size', () => {
+      render(
+        <Button as="a" href="/link" size="lg">
+          Link Default Large
+        </Button>
+      );
+
+      const linkDefaultLarge = screen.getByRole('link', {
+        name: /link default large/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="primary" size="lg">
+          Link Primary Large
+        </Button>
+      );
+
+      const linkPrimaryLarge = screen.getByRole('link', {
+        name: /link primary large/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="secondary" size="lg">
+          Link Secondary Large
+        </Button>
+      );
+
+      const linkSecondaryLarge = screen.getByRole('link', {
+        name: /link secondary large/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="danger" size="lg">
+          Link Danger Large
+        </Button>
+      );
+
+      const linkDangerLarge = screen.getByRole('link', {
+        name: /link danger large/i,
+      });
+
+      expect(linkDefaultLarge).toHaveAttribute('href', '/link');
+      expect(linkDefaultLarge).toHaveStyle({ padding: '1.1rem 2.2rem' });
+
+      expect(linkPrimaryLarge).toHaveAttribute('href', '/link');
+      expect(linkPrimaryLarge).toHaveStyle({ padding: '1.1rem 2.2rem' });
+
+      expect(linkSecondaryLarge).toHaveAttribute('href', '/link');
+      expect(linkSecondaryLarge).toHaveStyle({ padding: '1.1rem 2.2rem' });
+
+      expect(linkDangerLarge).toHaveAttribute('href', '/link');
+      expect(linkDangerLarge).toHaveStyle({ padding: '1.1rem 2.2rem' });
+    });
+
+    it('should render the "primary" color', () => {
+      render(
+        <Button as="a" href="/link" color="primary" size="sm">
+          Link Primary Small
+        </Button>
+      );
+
+      const linkPrimarySmall = screen.getByRole('link', {
+        name: /link primary small/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="primary" size="md">
+          Link Primary Medium
+        </Button>
+      );
+
+      const linkPrimaryMedium = screen.getByRole('link', {
+        name: /link primary medium/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="primary" size="lg">
+          Link Primary Large
+        </Button>
+      );
+
+      const linkPrimaryLarge = screen.getByRole('link', {
+        name: /link primary large/i,
+      });
+
+      expect(linkPrimarySmall).toHaveAttribute('href', '/link');
+      expect(linkPrimarySmall).toHaveStyle({
+        'background-color': '#2962ff',
+        color: '#fff',
+      });
+
+      expect(linkPrimaryMedium).toHaveAttribute('href', '/link');
+      expect(linkPrimaryMedium).toHaveStyle({
+        'background-color': '#2962ff',
+        color: '#fff',
+      });
+
+      expect(linkPrimaryLarge).toHaveAttribute('href', '/link');
+      expect(linkPrimaryLarge).toHaveStyle({
+        'background-color': '#2962ff',
+        color: '#fff',
+      });
+    });
+
+    it('should render the "secondary" color', () => {
+      render(
+        <Button as="a" href="/link" color="secondary" size="sm">
+          Link Secondary Small
+        </Button>
+      );
+
+      const linkSecondarySmall = screen.getByRole('link', {
+        name: /link secondary small/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="secondary" size="md">
+          Link Secondary Medium
+        </Button>
+      );
+
+      const linkSecondaryMedium = screen.getByRole('link', {
+        name: /link secondary medium/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="secondary" size="lg">
+          Link Secondary Large
+        </Button>
+      );
+
+      const linkSecondaryLarge = screen.getByRole('link', {
+        name: /link secondary large/i,
+      });
+
+      expect(linkSecondarySmall).toHaveAttribute('href', '/link');
+      expect(linkSecondarySmall).toHaveStyle({
+        'background-color': '#455a64',
+        color: '#fff',
+      });
+
+      expect(linkSecondaryMedium).toHaveAttribute('href', '/link');
+      expect(linkSecondaryMedium).toHaveStyle({
+        'background-color': '#455a64',
+        color: '#fff',
+      });
+
+      expect(linkSecondaryLarge).toHaveAttribute('href', '/link');
+      expect(linkSecondaryLarge).toHaveStyle({
+        'background-color': '#455a64',
+        color: '#fff',
+      });
+    });
+
+    it('should render the "danger" color', () => {
+      render(
+        <Button as="a" href="/link" color="danger" size="sm">
+          Link Danger Small
+        </Button>
+      );
+
+      const linkDangerSmall = screen.getByRole('link', {
+        name: /link danger small/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="danger" size="md">
+          Link Danger Medium
+        </Button>
+      );
+
+      const linkDangerMedium = screen.getByRole('link', {
+        name: /link danger medium/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="danger" size="lg">
+          Link Danger Large
+        </Button>
+      );
+
+      const linkDangerLarge = screen.getByRole('link', {
+        name: /link danger large/i,
+      });
+
+      expect(linkDangerSmall).toHaveAttribute('href', '/link');
+      expect(linkDangerSmall).toHaveStyle({
+        'background-color': '#d32f2f',
+        color: '#fff',
+      });
+
+      expect(linkDangerMedium).toHaveAttribute('href', '/link');
+      expect(linkDangerMedium).toHaveStyle({
+        'background-color': '#d32f2f',
+        color: '#fff',
+      });
+
+      expect(linkDangerLarge).toHaveAttribute('href', '/link');
+      expect(linkDangerLarge).toHaveStyle({
+        'background-color': '#d32f2f',
+        color: '#fff',
+      });
+    });
+
+    it('should disable the box shadow', () => {
+      render(
+        <Button as="a" href="/link" disableShadow>
+          Link Default Disabled Shadow
+        </Button>
+      );
+
+      const linkDefaultDisabledShadow = screen.getByRole('link', {
+        name: /link default disabled shadow/i,
+      });
+
+      render(
+        <Button as="a" href="/link" disableShadow color="primary">
+          Link Primary Disabled Shadow
+        </Button>
+      );
+
+      const linkPrimaryDisabledShadow = screen.getByRole('link', {
+        name: /link primary disabled shadow/i,
+      });
+
+      render(
+        <Button as="a" href="/link" disableShadow color="secondary">
+          Link Secondary Disabled Shadow
+        </Button>
+      );
+
+      const linkSecondaryDisabledShadow = screen.getByRole('link', {
+        name: /link secondary disabled shadow/i,
+      });
+
+      render(
+        <Button as="a" href="/link" disableShadow color="danger">
+          Link Danger Disabled Shadow
+        </Button>
+      );
+
+      const linkDangerDisabledShadow = screen.getByRole('link', {
+        name: /link danger disabled shadow/i,
+      });
+
+      expect(linkDefaultDisabledShadow).toHaveAttribute('href', '/link');
+      expect(linkDefaultDisabledShadow).not.toHaveStyleRule('box-shadow');
+
+      expect(linkPrimaryDisabledShadow).toHaveAttribute('href', '/link');
+      expect(linkPrimaryDisabledShadow).not.toHaveStyleRule('box-shadow');
+
+      expect(linkSecondaryDisabledShadow).toHaveAttribute('href', '/link');
+      expect(linkSecondaryDisabledShadow).not.toHaveStyleRule('box-shadow');
+
+      expect(linkDangerDisabledShadow).toHaveAttribute('href', '/link');
+      expect(linkDangerDisabledShadow).not.toHaveStyleRule('box-shadow');
+    });
+
+    it('should be disabled', () => {
+      render(
+        <Button as="a" href="/link" disabled>
+          Link Default Disabled
+        </Button>
+      );
+
+      const linkDefaultDisabled = screen.getByRole('link', {
+        name: /link default disabled/i,
+      });
+
+      render(
+        <Button as="a" href="/link" disabled color="primary">
+          Link Primary Disabled
+        </Button>
+      );
+
+      const linkPrimaryDisabled = screen.getByRole('link', {
+        name: /link primary disabled/i,
+      });
+
+      render(
+        <Button as="a" href="/link" disabled color="secondary">
+          Link Secondary Disabled
+        </Button>
+      );
+
+      const linkSecondaryDisabled = screen.getByRole('link', {
+        name: /link secondary disabled/i,
+      });
+
+      render(
+        <Button as="a" href="/link" disabled color="danger">
+          Link Danger Disabled
+        </Button>
+      );
+
+      const linkDangerDisabled = screen.getByRole('link', {
+        name: /link danger disabled/i,
+      });
+
+      expect(linkDefaultDisabled).toHaveAttribute('href', '/link');
+      expect(linkDefaultDisabled).toHaveStyle(DISABLED_STYLE);
+
+      expect(linkPrimaryDisabled).toHaveAttribute('href', '/link');
+      expect(linkPrimaryDisabled).toHaveStyle(DISABLED_STYLE);
+
+      expect(linkSecondaryDisabled).toHaveAttribute('href', '/link');
+      expect(linkSecondaryDisabled).toHaveStyle(DISABLED_STYLE);
+
+      expect(linkDangerDisabled).toHaveAttribute('href', '/link');
+      expect(linkDangerDisabled).toHaveStyle(DISABLED_STYLE);
+    });
+
+    it('should be focused', () => {
+      render(
+        <Button as="a" href="/link">
+          Link Default Focused
+        </Button>
+      );
+
+      const linkDefaultFocused = screen.getByRole('link', {
+        name: /link default focused/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="primary">
+          Link Primary Focused
+        </Button>
+      );
+
+      const linkPrimaryFocused = screen.getByRole('link', {
+        name: /link primary focused/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="secondary">
+          Link Secondary Focused
+        </Button>
+      );
+
+      const linkSecondaryFocused = screen.getByRole('link', {
+        name: /link secondary focused/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="danger">
+          Link Danger Focused
+        </Button>
+      );
+
+      const linkDangerFocused = screen.getByRole('link', {
+        name: /link danger focused/i,
+      });
+
+      linkDefaultFocused.focus();
+
+      expect(linkDefaultFocused).toHaveFocus();
+      expect(linkDefaultFocused).toHaveStyleRule(
+        'background-color',
+        '#aeaeae',
+        { modifier: ':focus' }
+      );
+
+      linkPrimaryFocused.focus();
+
+      expect(linkPrimaryFocused).toHaveFocus();
+      expect(linkPrimaryFocused).toHaveStyleRule(
+        'background-color',
+        '#0039cb',
+        { modifier: ':focus' }
+      );
+
+      linkSecondaryFocused.focus();
+
+      expect(linkSecondaryFocused).toHaveFocus();
+      expect(linkSecondaryFocused).toHaveStyleRule(
+        'background-color',
+        '#1c313a',
+        { modifier: ':focus' }
+      );
+
+      linkDangerFocused.focus();
+
+      expect(linkDangerFocused).toHaveFocus();
+      expect(linkDangerFocused).toHaveStyleRule('background-color', '#9a0007', {
+        modifier: ':focus',
+      });
+    });
+
+    it('should be hovered', () => {
+      render(
+        <Button as="a" href="/link">
+          Link Default Hovered
+        </Button>
+      );
+
+      const linkDefaultHovered = screen.getByRole('link', {
+        name: /link default hovered/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="primary">
+          Link Primary Hovered
+        </Button>
+      );
+
+      const linkPrimaryHovered = screen.getByRole('link', {
+        name: /link primary hovered/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="secondary">
+          Link Secondary Hovered
+        </Button>
+      );
+
+      const linkSecondaryHovered = screen.getByRole('link', {
+        name: /link secondary hovered/i,
+      });
+
+      render(
+        <Button as="a" href="/link" color="danger">
+          Link Danger Hovered
+        </Button>
+      );
+
+      const linkDangerHovered = screen.getByRole('link', {
+        name: /link danger hovered/i,
+      });
+
+      expect(linkDefaultHovered).toHaveAttribute('href', '/link');
+      expect(linkDefaultHovered).toHaveStyleRule(
+        'background-color',
+        '#aeaeae',
+        { modifier: ':hover' }
+      );
+
+      expect(linkPrimaryHovered).toHaveAttribute('href', '/link');
+      expect(linkPrimaryHovered).toHaveStyleRule(
+        'background-color',
+        '#0039cb',
+        { modifier: ':hover' }
+      );
+
+      expect(linkSecondaryHovered).toHaveAttribute('href', '/link');
+      expect(linkSecondaryHovered).toHaveStyleRule(
+        'background-color',
+        '#1c313a',
+        { modifier: ':hover' }
+      );
+
+      expect(linkDangerHovered).toHaveAttribute('href', '/link');
+      expect(linkDangerHovered).toHaveStyleRule('background-color', '#9a0007', {
+        modifier: ':hover',
+      });
+    });
+
+    it('should be rendered as an "outline" variant', () => {
+      render(
+        <Button as="a" href="/link" variant="outline">
+          Link
+        </Button>
+      );
+
+      const link = screen.getByRole('link', { name: /link/i });
+
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveStyle({
+        'background-color': '#fff',
+        'border-color': '#2962ff',
+        color: '#2962ff',
+      });
+    });
+
+    it('should be rendered as a "text" variant', () => {
+      render(
+        <Button as="a" href="/link" variant="text">
+          Link
+        </Button>
+      );
+
+      const link = screen.getByRole('link', { name: /link/i });
+
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveStyle({
+        'background-color': 'transparent',
+        'border-color': 'transparent',
+        color: '#2962FF',
+      });
+    });
+
+    it('should display an icon', () => {
+      render(
+        <Button
+          as="a"
+          href="/link"
+          children={<InsertEmoticon title="Emoticon" />}
+        />
+      );
+
+      expect(screen.getByRole('img')).toBeInTheDocument();
+    });
+
+    it('should display an icon on the left', () => {
+      render(
+        <Button
+          as="a"
+          href="/link"
+          leftIcon={<InsertEmoticon title="Emoticon" />}
+        >
+          Left Icon
+        </Button>
+      );
+
+      const withLeftIcon = screen.getByRole('img');
+
+      expect(withLeftIcon).toBeInTheDocument();
+      expect(withLeftIcon).toHaveStyle({ 'margin-right': '0.5rem' });
+    });
+
+    it('should display an icon on the right', () => {
+      render(
+        <Button
+          as="a"
+          href="/link"
+          rightIcon={<InsertEmoticon title="Emoticon" />}
+        >
           Right Icon
         </Button>
       );
