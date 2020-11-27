@@ -85,7 +85,7 @@ const _wrapperModifiers = {
         : _COLORS.get('primary')?.alternative};
       border-color: transparent;
       color: #9e9e9e;
-      cursor: not-allowed;
+      pointer-events: none;
     }
   `,
   setSize: (size: string) => css`
@@ -116,6 +116,7 @@ export const Wrapper = styled.button<ButtonProps>`
       line-height: 2rem;
       padding: 0.8rem 1.6rem;
       text-align: center;
+      text-decoration: none;
       transition: background-color 0.25s ease-in-out,
         border-color 0.25s ease-in-out;
 
