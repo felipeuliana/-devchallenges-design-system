@@ -1,6 +1,9 @@
 module.exports = {
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.ts(x)?', '!src/**/stories.tsx'],
+  collectCoverageFrom: [
+    'src/components/**/*.ts(x)?',
+    '!src/components/**/stories.tsx'
+  ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   modulePaths: ['./src/'],
   setupFilesAfterEnv: ['./src/setupTests.ts'],
