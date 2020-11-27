@@ -11,7 +11,41 @@ const DISABLED_STYLE = {
 };
 
 describe('<Button />', () => {
-  test.todo('should render correctly');
+  it('should render correctly', () => {
+    render(
+      <Button
+        color="primary"
+        size="lg"
+        leftIcon={<InsertEmoticon title="Emoticon" />}
+      >
+        Emoticon
+      </Button>
+    );
+
+    expect(screen.getByRole('button', { name: /emoticon/i })).toMatchSnapshot();
+
+    render(
+      <Button as="a" href="/link" size="sm" variant="text">
+        Link
+      </Button>
+    );
+
+    expect(screen.getByRole('link', { name: /link/i })).toMatchSnapshot();
+  });
+
+  it('should allow access to button attributes', () => {
+    render(
+      <Button disabled name="Default" value="Default">
+        Default
+      </Button>
+    );
+
+    const defaultButton = screen.getByRole('button', { name: /default/i });
+
+    expect(defaultButton).toHaveAttribute('disabled');
+    expect(defaultButton).toHaveAttribute('name');
+    expect(defaultButton).toHaveAttribute('value');
+  });
 
   describe('"default" type', () => {
     it('should be styled correctly', () => {
